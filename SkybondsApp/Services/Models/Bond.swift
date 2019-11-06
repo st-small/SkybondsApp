@@ -8,6 +8,10 @@
 
 import Foundation
 
+public struct BondsResponse: Decodable {
+    public var activities: [Bond]
+}
+
 public struct Bond: Decodable {
     public var title: String
     public var currency: String

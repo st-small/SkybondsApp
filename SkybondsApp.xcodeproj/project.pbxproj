@@ -20,6 +20,8 @@
 		84F621612371FA2D00F09B44 /* Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F621602371FA2D00F09B44 /* Bond.swift */; };
 		84F621652372000400F09B44 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F621632372000400F09B44 /* SnapKit.framework */; };
 		84F621662372000400F09B44 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F621642372000400F09B44 /* Charts.framework */; };
+		84F6216923720A6F00F09B44 /* MockDataSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6216823720A6F00F09B44 /* MockDataSourceService.swift */; };
+		84F6216B23720AEC00F09B44 /* bonds.json in Resources */ = {isa = PBXBuildFile; fileRef = 84F6216A23720AEC00F09B44 /* bonds.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		84F621602371FA2D00F09B44 /* Bond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bond.swift; sourceTree = "<group>"; };
 		84F621632372000400F09B44 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		84F621642372000400F09B44 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
+		84F6216823720A6F00F09B44 /* MockDataSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataSourceService.swift; sourceTree = "<group>"; };
+		84F6216A23720AEC00F09B44 /* bonds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bonds.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 				84F6215A2371F95400F09B44 /* APIConstants.swift */,
 				84F6215C2371F9AE00F09B44 /* NetworkService.swift */,
 				84F6215E2371F9D900F09B44 /* NetworkDataFetcher.swift */,
+				84F6216823720A6F00F09B44 /* MockDataSourceService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 		84F6214E2371F2DB00F09B44 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
+				84F6216A23720AEC00F09B44 /* bonds.json */,
 				84F621362371F28A00F09B44 /* AppDelegate.swift */,
 				84F621402371F28C00F09B44 /* Assets.xcassets */,
 				84F621422371F28C00F09B44 /* LaunchScreen.storyboard */,
@@ -213,6 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F6216B23720AEC00F09B44 /* bonds.json in Resources */,
 				84F621442371F28C00F09B44 /* LaunchScreen.storyboard in Resources */,
 				84F621412371F28C00F09B44 /* Assets.xcassets in Resources */,
 			);
@@ -248,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F6216923720A6F00F09B44 /* MockDataSourceService.swift in Sources */,
 				84F6215F2371F9D900F09B44 /* NetworkDataFetcher.swift in Sources */,
 				84F621552371F77600F09B44 /* ChartModel.swift in Sources */,
 				84F621592371F81800F09B44 /* Dynamic.swift in Sources */,

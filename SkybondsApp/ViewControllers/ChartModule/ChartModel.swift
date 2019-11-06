@@ -24,6 +24,7 @@ public class ChartModel: ChartModelProtocol {
     // Services
     private var networker: NetworkService
     private var fetcher: NetworkDataFetcher
+    private var dataFetcher: MockDataFetcher
     
     public init() {
         isUIBlocked = Dynamic(false)
@@ -31,16 +32,20 @@ public class ChartModel: ChartModelProtocol {
         
         networker = NetworkService()
         fetcher = NetworkDataFetcher(networker)
+        dataFetcher = MockDataSourceService()
     }
     
     public func getBonds() {
         isUIBlocked.value = true
-        fetcher.getBonds { [weak self] (response, error) in
-            self?.isUIBlocked.value = false
-            
-            if let error = error {
-                self?.error.value = error.localizedDescription
-            }
+//        fetcher.getBonds { [weak self] (response, error) in
+//            self?.isUIBlocked.value = false
+//
+//            if let error = error {
+//                self?.error.value = error.localizedDescription
+//            }
+//
+//        }
+        dataFetcher.getBonds { [weak self] (response, error) in
             
         }
     }
