@@ -8,13 +8,15 @@
 
 import Foundation
 
-public typealias ActionTrigger = (() -> ())
+public typealias ActionTrigger = ((_ start: PeriodItem, _ end: PeriodItem) -> ())
 
 public class PeriodsChangeAssembly {
     
     public var handler: ActionTrigger?
     
     private var viewController: PeriodsChangeView?
+    private var dates: [Date]
+    private var selectedPeriod: Period?
     
     public var view: PeriodsChangeView {
         guard let view = viewController else {
@@ -25,7 +27,12 @@ public class PeriodsChangeAssembly {
         return view
     }
     
+    public init(_ dates: [Date], period: Period? = nil) {
+        self.dates = dates
+        self.selectedPeriod = period
+    }
+    
     private func configureModule(_ view: PeriodsChangeView) {
-        view.viewModel = PeriodsChangeModel()
+        view.viewModel = PeriodsChangeModel(dates, period: selectedPeriod, handler: handler)
     }
 }

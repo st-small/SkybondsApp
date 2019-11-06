@@ -45,6 +45,36 @@ public class PeriodsChangeView: SKBModalController {
         return picker
     }()
     
+    private let endDateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Select end date:"
+        label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private var endPicker: UIPickerView = {
+        let picker = UIPickerView()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        return picker
+    }()
+    
+    private var acceptButton: UIButton = {
+        let button = UIButton(type: .roundedRect)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let color = Constants.Colors.MainGradient.end
+        let disabledColor = color.withAlphaComponent(0.3)
+        button.layer.borderWidth = 0.5
+        button.layer.borderColor = color.cgColor
+        button.layer.cornerRadius = 22
+        button.setTitleColor(color, for: .normal)
+        button.setTitleColor(disabledColor, for: .disabled)
+        button.setTitle("Accept", for: .normal)
+        return button
+    }()
+    
     private var closeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -56,18 +86,17 @@ public class PeriodsChangeView: SKBModalController {
     // Data
     public var viewModel: PeriodsChangeModelProtocol! {
         didSet {
-//            viewModel.isUIBlocked.bind { [weak self] isBlocked in
-//                DispatchQueue.main.async {
-//                    isBlocked ? self?.lockUI() : self?.unlockUI()
-//                }
-//            }
-//
-//            viewModel.bonds.bind { [weak self] bonds in
-//                guard let bond = bonds.first else { return }
-//                DispatchQueue.main.async {
-//                    self?.reportsView.update(bond)
-//                }
-//            }
+            viewModel.isUIBlocked.bind { [weak self] isBlocked in
+                DispatchQueue.main.async {
+                    isBlocked ? self?.lockUI() : self?.unlockUI()
+                }
+            }
+
+            viewModel.error.bind { [weak self] error in
+                DispatchQueue.main.async {
+                    self?.showErrorAlert(error)
+                }
+            }
         }
     }
     
@@ -78,6 +107,9 @@ public class PeriodsChangeView: SKBModalController {
         prepareTitle()
         prepareStartDateTitle()
         prepareStartDatePicker()
+        prepareEndDateTitle()
+        prepareEndDatePicker()
+        prepareAcceptButton()
         prepareCloseButton()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(closeTapped))
@@ -88,8 +120,9 @@ public class PeriodsChangeView: SKBModalController {
     private func prepareContainerView() {
         self.view.addSubview(containerView)
         containerView.snp.remakeConstraints { make in
-            make.height.equalToSuperview().multipliedBy(0.6)
-            make.width.equalToSuperview().multipliedBy(0.9)
+            make.height.equalTo(400)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
             make.center.equalToSuperview()
         }
         
@@ -101,7 +134,7 @@ public class PeriodsChangeView: SKBModalController {
         containerView.addSubview(titleLabel)
         
         titleLabel.snp.remakeConstraints { make in
-            make.top.equalTo(containerView.snp.top).offset(40)
+            make.top.equalTo(containerView.snp.top).offset(20)
             make.leading.equalTo(containerView.snp.leading).offset(40)
             make.trailing.equalTo(containerView.snp.trailing).offset(-40)
         }
@@ -127,6 +160,57 @@ public class PeriodsChangeView: SKBModalController {
         }
         startPicker.dataSource = self
         startPicker.delegate = self
+        
+        if let start = viewModel.startDate {
+            guard let index = viewModel.getIndexForPicker(start) else { return }
+            startPicker.selectRow(index, inComponent: 0, animated: true)
+        }
+    }
+    
+    private func prepareEndDateTitle() {
+        containerView.addSubview(endDateLabel)
+        
+        endDateLabel.snp.remakeConstraints { make in
+            make.top.equalTo(startPicker.snp.bottom).offset(10)
+            make.leading.equalToSuperview().offset(40)
+            make.trailing.equalToSuperview().offset(-40)
+        }
+    }
+    
+    private func prepareEndDatePicker() {
+        containerView.addSubview(endPicker)
+        endPicker.snp.remakeConstraints { make in
+            make.top.equalTo(endDateLabel.snp.bottom).offset(-15)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.height.equalTo(100)
+        }
+        endPicker.dataSource = self
+        endPicker.delegate = self
+        
+        if let end = viewModel.endDate {
+            guard let index = viewModel.getIndexForPicker(end) else { return }
+            endPicker.selectRow(index, inComponent: 0, animated: true)
+        }
+    }
+    
+    private func prepareAcceptButton() {
+        acceptButton.addTarget(self, action: #selector(acceptTapped), for: .touchUpInside)
+        containerView.addSubview(acceptButton)
+        
+        acceptButton.snp.remakeConstraints { make in
+            make.centerX.equalTo(containerView.snp.centerX)
+            make.top.equalTo(endPicker.snp.bottom)
+            make.width.equalTo(200)
+            make.height.equalTo(44)
+        }
+    }
+    
+    @objc
+    private func acceptTapped() {
+        guard viewModel.datesValid() else { return }
+        viewModel.periodUpdated()
+        closeTapped()
     }
     
     private func prepareCloseButton() {
@@ -135,7 +219,7 @@ public class PeriodsChangeView: SKBModalController {
         
         closeButton.snp.remakeConstraints { make in
             make.centerX.equalTo(containerView.snp.centerX)
-            make.bottom.equalTo(containerView.snp.bottom).offset(-30)
+            make.bottom.equalTo(containerView.snp.bottom).offset(-20)
             make.width.height.equalTo(44)
         }
     }
@@ -152,10 +236,20 @@ extension PeriodsChangeView: UIPickerViewDataSource {
     }
     
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 10
+        return viewModel.periods.value.count
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return viewModel.periods.value[row].dateString
     }
 }
-extension PeriodsChangeView: UIPickerViewDelegate { }
+extension PeriodsChangeView: UIPickerViewDelegate {
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let date = viewModel.periods.value[row]
+        let type = pickerView == startPicker ? PickerType.start : PickerType.end
+        viewModel.updateValue(date, type: type)
+    }
+}
 
 extension PeriodsChangeView: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {

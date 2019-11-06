@@ -18,7 +18,7 @@ public class ReportsView: UIView {
     private var lineChartView: LineChartView!
     
     // Data
-    private var bondItem: BondModel!
+    private var bondItems: [BondModelValue]!
 
     
     public override init(frame: CGRect) {
@@ -37,9 +37,9 @@ public class ReportsView: UIView {
         self.clipsToBounds = true
     }
     
-    public func update(_ bond: BondModel, type: ChartType = .price) {
-        guard !bond.items.isEmpty else { return }
-        bondItem = bond
+    public func update(_ bondItems: [BondModelValue], type: ChartType = .price) {
+        guard !bondItems.isEmpty else { return }
+        self.bondItems = bondItems
         
         clear()
         
@@ -80,7 +80,7 @@ public class ReportsView: UIView {
         xAxis.granularityEnabled = true
         xAxis.labelCount = 5
         
-        let xValues = bondItem.items.compactMap({ $0.date })
+        let xValues = bondItems.compactMap({ $0.date })
         let xValuesStrings = xValues.map({ $0.stringDateWithFormatUTC(format: "HH:mm\ndd.MM.yy") })
         xAxis.valueFormatter = IndexAxisValueFormatter(values: xValuesStrings)
         
@@ -131,7 +131,7 @@ public class ReportsView: UIView {
     }
     
     private func updateBarChartData() {
-        let dataEntry = bondItem.items.enumerated().map({ index, item -> BarChartDataEntry in
+        let dataEntry = bondItems.enumerated().map({ index, item -> BarChartDataEntry in
             BarChartDataEntry(x: Double(index), y: item.price)
         })
         let set = BarChartDataSet(entries: dataEntry)
@@ -158,7 +158,7 @@ public class ReportsView: UIView {
     }
     
     private func setup(lineChartView: LineChartView) {
-        let values = bondItem.items.map({ $0.price })
+        let values = bondItems.map({ $0.price })
         let valuesMax = (values.max() ?? 1000) * 1.25
         let valuesMin = Double(0)
 
@@ -174,7 +174,7 @@ public class ReportsView: UIView {
         xAxis.labelCount = 5
         xAxis.granularityEnabled = true
 
-        let xValues = bondItem.items.compactMap({ $0.date })
+        let xValues = bondItems.compactMap({ $0.date })
         let xValuesStrings = xValues.map({ $0.stringDateWithFormatUTC(format: "HH:mm\ndd.MM.yy") })
         xAxis.valueFormatter = IndexAxisValueFormatter(values: xValuesStrings)
 
@@ -213,7 +213,7 @@ public class ReportsView: UIView {
     }
     
     private func updateLineChartData() {
-        let values = bondItem.items.enumerated().map { (index, i) -> ChartDataEntry in
+        let values = bondItems.enumerated().map { (index, i) -> ChartDataEntry in
             return ChartDataEntry(x: Double(index), y: i.price, icon: nil)
         }
 

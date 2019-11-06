@@ -43,6 +43,19 @@ public class ChartViewController: SKBViewController {
                 }
             }
             
+            viewModel.error.bind { [weak self] error in
+                DispatchQueue.main.async {
+                    self?.showErrorAlert(error)
+                }
+            }
+            
+            viewModel.filteredItems.bind { [weak self] items in
+                DispatchQueue.main.async {
+                    let type = self?.viewModel.chartType ?? .price
+                    self?.reportsView.update(items, type: type)
+                }
+            }
+            
             viewModel.bonds.bind { [weak self] bonds in
                 guard
                     let bond = bonds.first,
@@ -50,7 +63,7 @@ public class ChartViewController: SKBViewController {
                     let end = bond.items.last?.date else { return }
                 DispatchQueue.main.async {
                     self?.periodsView.update(start, end)
-                    self?.reportsView.update(bond)
+                    self?.reportsView.update(bond.items)
                 }
             }
         }
@@ -127,11 +140,14 @@ public class ChartViewController: SKBViewController {
     
     @objc
     private func openPeriodsViewTapped() {
-        let assembly = PeriodsChangeAssembly()
-        assembly.handler = { [weak self] in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                
-            })
+        guard let dates = viewModel.bonds.value.first?.items.map({ $0.date }) else { return }
+        let assembly = PeriodsChangeAssembly(dates, period: viewModel.selectedPeriod)
+        assembly.handler = { [weak self] (startDate, endDate) in
+            DispatchQueue.main.async {
+                let period = Period(start: startDate, end: endDate)
+                self?.viewModel.updatePeriod(period)
+                self?.periodsView.update(startDate.date, endDate.date)
+            }
         }
         let modal = assembly.view
         presentViaCrossDissolve(modal, on: navigationController!)
@@ -146,10 +162,11 @@ extension ChartViewController: UIPopoverPresentationControllerDelegate {
 
 extension ChartViewController: ChartTypesTableViewDelegate {
     public func didSelectChartType(_ type: ChartType) {
+        viewModel.updateChartType(type)
         chartTypesTableView.dismiss(animated: true, completion: nil)
         chartTypeSelectorView.updateTitle(type.value)
         
-        guard let bond = viewModel?.bonds.value.first else { return }
-        reportsView.update(bond, type: type)
+        guard let items = viewModel?.filteredItems.value else { return }
+        reportsView.update(items, type: type)
     }
 }

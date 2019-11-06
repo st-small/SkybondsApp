@@ -37,3 +37,13 @@ public struct BondModelValue {
     public var date: Date
     public var price: Double
 }
+
+public struct Period {
+    public var start: PeriodItem
+    public var end: PeriodItem
+}
+
+public struct PeriodItem {
+    public var date: Date
+    public var dateString: String
+}
