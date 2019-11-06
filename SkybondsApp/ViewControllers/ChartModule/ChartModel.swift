@@ -11,6 +11,7 @@ import Foundation
 public protocol ChartModelProtocol: class {
     var isUIBlocked: Dynamic<Bool> { get }
     var error: Dynamic<String> { get }
+    var bonds: Dynamic<[Bond]> { get }
     
     func getBonds()
 }
@@ -20,6 +21,7 @@ public class ChartModel: ChartModelProtocol {
     // Data
     public let isUIBlocked: Dynamic<Bool>
     public let error: Dynamic<String>
+    public let bonds: Dynamic<[Bond]>
     
     // Services
     private var networker: NetworkService
@@ -29,6 +31,7 @@ public class ChartModel: ChartModelProtocol {
     public init() {
         isUIBlocked = Dynamic(false)
         error = Dynamic("")
+        bonds = Dynamic([])
         
         networker = NetworkService()
         fetcher = NetworkDataFetcher(networker)
@@ -37,16 +40,10 @@ public class ChartModel: ChartModelProtocol {
     
     public func getBonds() {
         isUIBlocked.value = true
-//        fetcher.getBonds { [weak self] (response, error) in
-//            self?.isUIBlocked.value = false
-//
-//            if let error = error {
-//                self?.error.value = error.localizedDescription
-//            }
-//
-//        }
         dataFetcher.getBonds { [weak self] (response, error) in
-            
+            self?.isUIBlocked.value = false
+            guard let activities = response?.activities else { return }
+            self?.bonds.value = activities
         }
     }
 }

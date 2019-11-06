@@ -10,18 +10,18 @@ import Foundation
 
 public class ChartAssembly {
     
-    private var viewController: ChartView?
+    private var viewController: ChartViewController?
     
-    public var view: ChartView {
+    public var view: ChartViewController {
         guard let view = viewController else {
-            self.viewController = ChartView()
+            self.viewController = ChartViewController()
             self.configureModule(self.viewController!)
             return self.viewController!
         }
         return view
     }
     
-    private func configureModule(_ view: ChartView) {
+    private func configureModule(_ view: ChartViewController) {
         view.viewModel = ChartModel()
     }
 }
