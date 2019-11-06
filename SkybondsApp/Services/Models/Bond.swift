@@ -22,4 +22,18 @@ public struct Bond: Decodable {
 public struct BondValue: Decodable {
     public var date: String
     public var price: Double
+    
+    public var dateValue: Date?
+}
+
+public struct BondModel {
+    public var title: String
+    public var currency: String
+    public var isin: String
+    public var items: [BondModelValue]
+}
+
+public struct BondModelValue {
+    public var date: Date
+    public var price: Double
 }

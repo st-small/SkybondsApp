@@ -27,7 +27,14 @@ public class ChartViewController: SKBViewController {
         let tableViewController = ChartTypesTableView()
         return tableViewController
     }()
+    
+    private var periodsView: PeriodsView = {
+        let view = PeriodsView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
+    // Data
     public var viewModel: ChartModelProtocol! {
         didSet {
             viewModel.isUIBlocked.bind { [weak self] isBlocked in
@@ -37,8 +44,12 @@ public class ChartViewController: SKBViewController {
             }
             
             viewModel.bonds.bind { [weak self] bonds in
-                guard let bond = bonds.first else { return }
+                guard
+                    let bond = bonds.first,
+                    let start = bond.items.first?.date,
+                    let end = bond.items.last?.date else { return }
                 DispatchQueue.main.async {
+                    self?.periodsView.update(start, end)
                     self?.reportsView.update(bond)
                 }
             }
@@ -58,6 +69,7 @@ public class ChartViewController: SKBViewController {
         
         prepareReportsView()
         prepareChartTypeSelectorView()
+        preparePeriodsView()
     }
     
     private func prepareReportsView() {
@@ -101,6 +113,29 @@ public class ChartViewController: SKBViewController {
         
         present(chartTypesTableView, animated: true, completion: nil)
     }
+    
+    private func preparePeriodsView() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(openPeriodsViewTapped))
+        periodsView.addGestureRecognizer(tap)
+        view.addSubview(periodsView)
+        periodsView.snp.remakeConstraints { make in
+            make.top.equalTo(reportsView.snp.bottom).offset(16)
+            make.leading.trailing.equalTo(reportsView)
+            make.height.equalTo(44)
+        }
+    }
+    
+    @objc
+    private func openPeriodsViewTapped() {
+        let assembly = PeriodsChangeAssembly()
+        assembly.handler = { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                
+            })
+        }
+        let modal = assembly.view
+        presentViaCrossDissolve(modal, on: navigationController!)
+    }
 }
 
 extension ChartViewController: UIPopoverPresentationControllerDelegate {
@@ -113,5 +148,8 @@ extension ChartViewController: ChartTypesTableViewDelegate {
     public func didSelectChartType(_ type: ChartType) {
         chartTypesTableView.dismiss(animated: true, completion: nil)
         chartTypeSelectorView.updateTitle(type.value)
+        
+        guard let bond = viewModel?.bonds.value.first else { return }
+        reportsView.update(bond, type: type)
     }
 }

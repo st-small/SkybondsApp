@@ -14,8 +14,8 @@ public struct Constants {
         static let backgroundColor = UIColor(hexString: "#FFFFFF")
         
         public struct MainGradient {
-            static let start = UIColor(hexString: "#34AFFF")
-            static let end = UIColor(hexString: "#8321E1")
+            static let start = UIColor(hexString: "#004e92")
+            static let end = UIColor(hexString: "#000428")
         }
     }
 }

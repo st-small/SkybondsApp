@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		845D708D237324F400A7FA86 /* PeriodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D708C237324F400A7FA86 /* PeriodsView.swift */; };
+		845D708F237328FB00A7FA86 /* SKBModalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D708E237328FB00A7FA86 /* SKBModalController.swift */; };
+		845D709223732A7700A7FA86 /* PeriodsChangeAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D709123732A7700A7FA86 /* PeriodsChangeAssembly.swift */; };
+		845D709423732A8500A7FA86 /* PeriodsChangeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D709323732A8500A7FA86 /* PeriodsChangeModel.swift */; };
+		845D709623732A9200A7FA86 /* PeriodsChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D709523732A9200A7FA86 /* PeriodsChangeView.swift */; };
 		84F621372371F28A00F09B44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F621362371F28A00F09B44 /* AppDelegate.swift */; };
 		84F621412371F28C00F09B44 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84F621402371F28C00F09B44 /* Assets.xcassets */; };
 		84F621442371F28C00F09B44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84F621422371F28C00F09B44 /* LaunchScreen.storyboard */; };
@@ -14,9 +19,6 @@
 		84F621552371F77600F09B44 /* ChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F621542371F77600F09B44 /* ChartModel.swift */; };
 		84F621572371F79E00F09B44 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F621562371F79E00F09B44 /* ChartViewController.swift */; };
 		84F621592371F81800F09B44 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F621582371F81800F09B44 /* Dynamic.swift */; };
-		84F6215B2371F95400F09B44 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6215A2371F95400F09B44 /* APIConstants.swift */; };
-		84F6215D2371F9AE00F09B44 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6215C2371F9AE00F09B44 /* NetworkService.swift */; };
-		84F6215F2371F9D900F09B44 /* NetworkDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6215E2371F9D900F09B44 /* NetworkDataFetcher.swift */; };
 		84F621612371FA2D00F09B44 /* Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F621602371FA2D00F09B44 /* Bond.swift */; };
 		84F621652372000400F09B44 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F621632372000400F09B44 /* SnapKit.framework */; };
 		84F621662372000400F09B44 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F621642372000400F09B44 /* Charts.framework */; };
@@ -36,6 +38,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		845D708C237324F400A7FA86 /* PeriodsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodsView.swift; sourceTree = "<group>"; };
+		845D708E237328FB00A7FA86 /* SKBModalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKBModalController.swift; sourceTree = "<group>"; };
+		845D709123732A7700A7FA86 /* PeriodsChangeAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodsChangeAssembly.swift; sourceTree = "<group>"; };
+		845D709323732A8500A7FA86 /* PeriodsChangeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodsChangeModel.swift; sourceTree = "<group>"; };
+		845D709523732A9200A7FA86 /* PeriodsChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodsChangeView.swift; sourceTree = "<group>"; };
 		84F621332371F28A00F09B44 /* SkybondsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkybondsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F621362371F28A00F09B44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F621402371F28C00F09B44 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -45,9 +52,6 @@
 		84F621542371F77600F09B44 /* ChartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartModel.swift; sourceTree = "<group>"; };
 		84F621562371F79E00F09B44 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		84F621582371F81800F09B44 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
-		84F6215A2371F95400F09B44 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
-		84F6215C2371F9AE00F09B44 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		84F6215E2371F9D900F09B44 /* NetworkDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataFetcher.swift; sourceTree = "<group>"; };
 		84F621602371FA2D00F09B44 /* Bond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bond.swift; sourceTree = "<group>"; };
 		84F621632372000400F09B44 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		84F621642372000400F09B44 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
@@ -79,6 +83,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		845D708B237324DB00A7FA86 /* PeriodsView */ = {
+			isa = PBXGroup;
+			children = (
+				845D708C237324F400A7FA86 /* PeriodsView.swift */,
+			);
+			path = PeriodsView;
+			sourceTree = "<group>";
+		};
+		845D709023732A3800A7FA86 /* PeriodsChangeModule */ = {
+			isa = PBXGroup;
+			children = (
+				845D709123732A7700A7FA86 /* PeriodsChangeAssembly.swift */,
+				845D709323732A8500A7FA86 /* PeriodsChangeModel.swift */,
+				845D709523732A9200A7FA86 /* PeriodsChangeView.swift */,
+			);
+			path = PeriodsChangeModule;
+			sourceTree = "<group>";
+		};
 		84F6212A2371F28A00F09B44 = {
 			isa = PBXGroup;
 			children = (
@@ -112,9 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				84F621502371F5AA00F09B44 /* Models */,
-				84F6215A2371F95400F09B44 /* APIConstants.swift */,
-				84F6215C2371F9AE00F09B44 /* NetworkService.swift */,
-				84F6215E2371F9D900F09B44 /* NetworkDataFetcher.swift */,
 				84F6216823720A6F00F09B44 /* MockDataSourceService.swift */,
 			);
 			path = Services;
@@ -124,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				84F621512371F73C00F09B44 /* ChartModule */,
+				845D709023732A3800A7FA86 /* PeriodsChangeModule */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -136,6 +156,7 @@
 				84F621582371F81800F09B44 /* Dynamic.swift */,
 				84F6216E2372AF7B00F09B44 /* String + Extension.swift */,
 				84F621772372BFD100F09B44 /* SKBViewController.swift */,
+				845D708E237328FB00A7FA86 /* SKBModalController.swift */,
 				84F6217D2372C0AC00F09B44 /* UIColor + Extension.swift */,
 			);
 			path = Helpers;
@@ -177,6 +198,7 @@
 				84F621562371F79E00F09B44 /* ChartViewController.swift */,
 				84F621812372C86400F09B44 /* ChartTypeSelection */,
 				84F621762372B1EC00F09B44 /* ReportsView */,
+				845D708B237324DB00A7FA86 /* PeriodsView */,
 			);
 			path = ChartModule;
 			sourceTree = "<group>";
@@ -306,25 +328,27 @@
 			files = (
 				84F6216923720A6F00F09B44 /* MockDataSourceService.swift in Sources */,
 				84F621782372BFD100F09B44 /* SKBViewController.swift in Sources */,
+				845D709223732A7700A7FA86 /* PeriodsChangeAssembly.swift in Sources */,
 				84F621732372B03500F09B44 /* XYMarkerView.swift in Sources */,
 				84F621712372AFE700F09B44 /* Date + Extension.swift in Sources */,
-				84F6215F2371F9D900F09B44 /* NetworkDataFetcher.swift in Sources */,
 				84F6217A2372C01200F09B44 /* GradientView.swift in Sources */,
+				845D708F237328FB00A7FA86 /* SKBModalController.swift in Sources */,
 				84F621832372CE1000F09B44 /* ChartTypesTableView.swift in Sources */,
 				84F6216F2372AF7B00F09B44 /* String + Extension.swift in Sources */,
 				84F621552371F77600F09B44 /* ChartModel.swift in Sources */,
 				84F621592371F81800F09B44 /* Dynamic.swift in Sources */,
-				84F6215B2371F95400F09B44 /* APIConstants.swift in Sources */,
 				84F6217E2372C0AC00F09B44 /* UIColor + Extension.swift in Sources */,
 				84F621532371F75400F09B44 /* ChartAssembly.swift in Sources */,
 				84F621752372B06E00F09B44 /* BalloonMarker.swift in Sources */,
 				84F621612371FA2D00F09B44 /* Bond.swift in Sources */,
+				845D709623732A9200A7FA86 /* PeriodsChangeView.swift in Sources */,
+				845D709423732A8500A7FA86 /* PeriodsChangeModel.swift in Sources */,
 				84F621372371F28A00F09B44 /* AppDelegate.swift in Sources */,
 				84F621572371F79E00F09B44 /* ChartViewController.swift in Sources */,
-				84F6215D2371F9AE00F09B44 /* NetworkService.swift in Sources */,
 				84F6216D2372AD6200F09B44 /* ReportsView.swift in Sources */,
 				84F6217C2372C04800F09B44 /* Constants.swift in Sources */,
 				84F621802372C41100F09B44 /* ChartTypeSelector.swift in Sources */,
+				845D708D237324F400A7FA86 /* PeriodsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
