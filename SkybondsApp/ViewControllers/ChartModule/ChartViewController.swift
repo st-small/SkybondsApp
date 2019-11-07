@@ -33,6 +33,8 @@ public class ChartViewController: SKBViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private var bondsCollection = BondsCollectionView()
 
     // Data
     public var viewModel: ChartModelProtocol! {
@@ -53,17 +55,18 @@ public class ChartViewController: SKBViewController {
                 DispatchQueue.main.async {
                     let type = self?.viewModel.chartType ?? .price
                     self?.reportsView.update(items, type: type)
+                    
+                    guard
+                        let start = items.first?.dateValue,
+                        let end = items.last?.dateValue else { return }
+                    self?.periodsView.update(start, end)
                 }
             }
             
             viewModel.bonds.bind { [weak self] bonds in
-                guard
-                    let bond = bonds.first,
-                    let start = bond.items.first?.date,
-                    let end = bond.items.last?.date else { return }
                 DispatchQueue.main.async {
-                    self?.periodsView.update(start, end)
-                    self?.reportsView.update(bond.items)
+                    self?.bondsCollection.set(bonds: bonds)
+                    self?.bondsCollection.reloadData()
                 }
             }
         }
@@ -82,6 +85,7 @@ public class ChartViewController: SKBViewController {
         
         prepareReportsView()
         prepareChartTypeSelectorView()
+        prepareCollectionView()
         preparePeriodsView()
     }
     
@@ -127,12 +131,25 @@ public class ChartViewController: SKBViewController {
         present(chartTypesTableView, animated: true, completion: nil)
     }
     
+    private func prepareCollectionView() {
+        bondsCollection.bondDelegate = self
+        view.addSubview(bondsCollection)
+        bondsCollection.translatesAutoresizingMaskIntoConstraints = false
+        
+        let height = (UIScreen.main.bounds.width - 32 - 30)/3 + 10
+        bondsCollection.snp.remakeConstraints { make in
+            make.top.equalTo(reportsView.snp.bottom).offset(16)
+            make.leading.trailing.equalTo(reportsView)
+            make.height.equalTo(height)
+        }
+    }
+    
     private func preparePeriodsView() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(openPeriodsViewTapped))
         periodsView.addGestureRecognizer(tap)
         view.addSubview(periodsView)
         periodsView.snp.remakeConstraints { make in
-            make.top.equalTo(reportsView.snp.bottom).offset(16)
+            make.top.equalTo(bondsCollection.snp.bottom).offset(16)
             make.leading.trailing.equalTo(reportsView)
             make.height.equalTo(44)
         }
@@ -140,7 +157,7 @@ public class ChartViewController: SKBViewController {
     
     @objc
     private func openPeriodsViewTapped() {
-        guard let dates = viewModel.bonds.value.first?.items.map({ $0.date }) else { return }
+        guard let dates = viewModel.currentBond.value?.items.compactMap({ $0.dateValue }) else { return }
         let assembly = PeriodsChangeAssembly(dates, period: viewModel.selectedPeriod)
         assembly.handler = { [weak self] (startDate, endDate) in
             DispatchQueue.main.async {
@@ -168,5 +185,11 @@ extension ChartViewController: ChartTypesTableViewDelegate {
         
         guard let items = viewModel?.filteredItems.value else { return }
         reportsView.update(items, type: type)
+    }
+}
+
+extension ChartViewController: BondsCollectionViewDelegate {
+    public func didSelectItem(isin: String) {
+        viewModel.updateCurrentBond(isin)
     }
 }

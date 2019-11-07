@@ -18,7 +18,7 @@ public class ReportsView: UIView {
     private var lineChartView: LineChartView!
     
     // Data
-    private var bondItems: [BondModelValue]!
+    private var bondItems: [BondValue]!
 
     
     public override init(frame: CGRect) {
@@ -37,7 +37,7 @@ public class ReportsView: UIView {
         self.clipsToBounds = true
     }
     
-    public func update(_ bondItems: [BondModelValue], type: ChartType = .price) {
+    public func update(_ bondItems: [BondValue], type: ChartType = .price) {
         guard !bondItems.isEmpty else { return }
         self.bondItems = bondItems
         
@@ -80,7 +80,7 @@ public class ReportsView: UIView {
         xAxis.granularityEnabled = true
         xAxis.labelCount = 5
         
-        let xValues = bondItems.compactMap({ $0.date })
+        let xValues = bondItems.compactMap({ $0.dateValue })
         let xValuesStrings = xValues.map({ $0.stringDateWithFormatUTC(format: "HH:mm\ndd.MM.yy") })
         xAxis.valueFormatter = IndexAxisValueFormatter(values: xValuesStrings)
         
@@ -174,7 +174,7 @@ public class ReportsView: UIView {
         xAxis.labelCount = 5
         xAxis.granularityEnabled = true
 
-        let xValues = bondItems.compactMap({ $0.date })
+        let xValues = bondItems.compactMap({ $0.dateValue })
         let xValuesStrings = xValues.map({ $0.stringDateWithFormatUTC(format: "HH:mm\ndd.MM.yy") })
         xAxis.valueFormatter = IndexAxisValueFormatter(values: xValuesStrings)
 
