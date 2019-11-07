@@ -20,7 +20,10 @@ public struct MockDataSourceService: MockDataFetcher {
         let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .uncached)
         
         let decoded = self.decodeJSON(type: BondsResponse.self, from: data)
-        response(decoded, nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            response(decoded, nil)
+        }
     }
     
     private func decodeJSON<T: Decodable>(type: T.Type, from: Data?) -> T? {
