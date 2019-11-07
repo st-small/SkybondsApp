@@ -71,7 +71,7 @@
 <img src="/images/architecture.png">
 
 ## Демонстрация экранов
-<img src="/images/sample.jpeg" width="1000" height="2000">
+<img src="/images/sample.png" width="900" height="2000">
 
 ## Резюме
 ● Сложность задачи 3 из 10, (отсутствие источника данных и дизайна, все элементы рисовались разработчиком самостоятельно)
