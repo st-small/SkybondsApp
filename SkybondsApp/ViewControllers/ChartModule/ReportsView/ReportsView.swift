@@ -126,6 +126,7 @@ public class ReportsView: UIView {
         xAxis.labelPosition = .bottom
         
         chartView.rightAxis.enabled = false
+        chartView.animate(xAxisDuration: 2.5)
         
         updateBarChartData()
     }

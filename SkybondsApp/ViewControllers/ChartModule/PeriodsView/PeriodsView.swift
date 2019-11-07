@@ -17,6 +17,8 @@ public class PeriodsView: UIView {
         label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.1
         return label
     }()
     

@@ -17,9 +17,11 @@ public class BondsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = Constants.Colors.MainGradient.start
-        label.font = UIFont.systemFont(ofSize: 10, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.numberOfLines = 3
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.1
         return label
     }()
     
@@ -27,9 +29,11 @@ public class BondsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = Constants.Colors.MainGradient.start
-        label.font = UIFont.systemFont(ofSize: 10, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.numberOfLines = 3
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.1
         return label
     }()
     
@@ -56,8 +60,8 @@ public class BondsCollectionViewCell: UICollectionViewCell {
         titleLabel.snp.remakeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().offset(-5)
-            make.leading.equalToSuperview().offset(5)
-            make.trailing.equalToSuperview().offset(-5)
+            make.leading.equalToSuperview().offset(7)
+            make.trailing.equalToSuperview().offset(-7)
         }
     }
     
@@ -66,8 +70,8 @@ public class BondsCollectionViewCell: UICollectionViewCell {
         currencyLabel.snp.remakeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
-            make.leading.equalToSuperview().offset(5)
-            make.trailing.equalToSuperview().offset(-5)
+            make.leading.equalToSuperview().offset(7)
+            make.trailing.equalToSuperview().offset(-7)
         }
     }
     
