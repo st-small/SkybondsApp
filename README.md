@@ -9,7 +9,7 @@
 Реализация данного задания доступна по ссылке: [Файл playground](https://github.com/st-small/SkybondsApp/blob/master/Algorithm.playground/Contents.swift)
 
 ## Задача 'График облигации'
-Приложение не работает с сетью, все данные берутся из файла bonds.json. Получаются через протокол 'MockDataFetcher' (реализованным MockDataSourceService). Для дополнительного приближения к условиям симулирующим ответ по сети, в сервисе реализована задержка ответа с данными. Задержка в 3 секунды, ее можно изменить в файле MockDataSourceService (метод 'getBonds(response: @escaping (BondsResponse?, Error?) -> ())'). В файле представлены облигации трех видов: (Kamaz, Gazprombank, Russian Helicopters JSC). Каждая из облигаций имеет вид:
+Приложение не работает с сетью, все данные берутся из файла bonds.json. Получаются через протокол 'MockDataFetcher' (реализованным MockDataSourceService). Для дополнительного приближения к условиям, симулирующим ответ по сети, в сервисе реализована задержка ответа с данными. Задержка в 3 секунды, ее можно изменить в файле MockDataSourceService (метод 'getBonds(response: @escaping (BondsResponse?, Error?) -> ())'). В файле представлены облигации трех видов: (Kamaz, Gazprombank, Russian Helicopters JSC). Каждая из облигаций имеет вид:
 ```
 "title": "Kamaz",
 "currency": "RUB",
